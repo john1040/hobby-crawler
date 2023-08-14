@@ -50,18 +50,18 @@ class WingsToysSpider(scrapy.Spider):
     def parse_quantity(self, response):
         try: 
             quantity = response.css('input.qty_value').attrib['data-max']
-            discount = response.css('h5.pt_sale::text').get()
-            print('TESTSTSTST', discount)
-            if discount:
-                print('JOJO', discount)
+            discount = response.css('span.js_onsale_price_span::text').get()
+            # print('TESTSTSTST', discount)
+            # if discount:
+            #     print('JOJO', discount)
             name = response.request.meta['name']
-            price = response.request.meta['price']
+            # price = response.request.meta['price']
             yield {
                 'name': name,
-                'price': price,
+                'price': discount,
                 'url': response.url,
                 'quantity': quantity,
-                'discount': discount,
+                # 'discount': discount,
             }
         except:
             quantity = '0'
